@@ -2,9 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-export default defineConfig({
-  // This is the essential fix for gomugomucode.github.io/animated-bio-folio/
-  base: "/animated-bio-folio/",
+export default defineConfig(({ mode }) => ({
+  // If we are in production, we use root '/' for Vercel. 
+  // If you ever go back to GitHub Pages, you'd change this back to your repo name.
+  base: "/",
 
   server: {
     host: "::",
@@ -25,7 +26,6 @@ export default defineConfig({
   },
 
   build: {
-    // This increases the limit so you don't get warnings about large files
     chunkSizeWarningLimit: 2000,
   },
-});
+}));
