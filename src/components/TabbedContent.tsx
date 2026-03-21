@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, GraduationCap, Users } from "lucide-react";
+import { Briefcase, GraduationCap, Users, ExternalLink, Github } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const tabs = [
@@ -12,33 +12,45 @@ const tabs = [
 type TabId = (typeof tabs)[number]["id"];
 
 const ExperienceTab = () => (
-  <div className="space-y-4">
+  <div className="space-y-6">
     <ContentCard
       title="Full-Stack E-Learning Platform"
       description="Built a comprehensive e-learning management system for the college to facilitate online education and resource sharing."
-      tags={["React", "Tailwind CSS", "Node.js", "Express.js", "MySQL", "SQLite"]}
+      tags={["React", "Tailwind CSS", "Node.js", "Express.js", "MySQL"]}
+      imageUrl="/elearning-preview.webp"
+      liveLink="https://elearn-lake.vercel.app"
+      githubLink="https://github.com/gomugomucode/elearn"
     />
     <ContentCard
       title="Solana Loyalty Rewards dApp"
-      description="Developed a decentralized application for a Superteam Nepal bounty."
-      tags={["Full-Stack Web3"]}
+      description="Developed a decentralized application for a Superteam Nepal bounty, implementing blockchain-based user rewards."
+      tags={["Full-Stack Web3", "Solana", "Nextjs"]}
+      imageUrl="/solana.webp"
+      liveLink="https://solana-loyalty-d-app.vercel.app/"
+      githubLink="https://github.com/gomugomucode/Solana-Loyalty-dApp"
     />
   </div>
 );
 
 const EducationTab = () => (
-  <div className="space-y-4">
+  <div className="space-y-6">
     <ContentCard
       title="Bachelor of Computer Applications (BCA)"
-      subtitle="Butwal Kalika Campus · July 2023 – Present · 5th Semester"
-      description="Focusing on software engineering, database management, and web technologies."
+      subtitle="Butwal Kalika Campus · July 2023 – Present"
+      description="Currently in my 5th Semester. Focusing on software engineering, database management, web technologies, and modern application architecture."
+      tags={[]}
+    />
+    <ContentCard
+      title="Civil Engineering (Class 9 - 12)"
+      subtitle="Janasewa Secondary School"
+      description="Completed secondary education with a specialized technical focus on Civil Engineering fundamentals, mathematics, and structural principles."
       tags={[]}
     />
   </div>
 );
 
 const LeadershipTab = () => (
-  <div className="space-y-4">
+  <div className="space-y-6">
     <ContentCard
       title="Web Development & Deployment Mentor"
       description="Mentoring campus juniors in core web technologies (HTML, CSS) and modern version control/deployment workflows using Git, GitHub, and Vercel."
@@ -52,30 +64,72 @@ const LeadershipTab = () => (
   </div>
 );
 
-const ContentCard = ({
-  title,
-  subtitle,
-  description,
-  tags,
-}: {
+interface ContentCardProps {
   title: string;
   subtitle?: string;
   description: string;
   tags: string[];
-}) => (
-  <div className="bg-card border border-border rounded-xl p-5 md:p-6 hover:border-primary/40 transition-colors">
-    <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
-    {subtitle && <p className="text-sm text-primary font-mono mb-2">{subtitle}</p>}
-    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{description}</p>
-    {tags.length > 0 && (
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
-          <span key={tag} className="text-xs font-mono px-2.5 py-1 rounded-md bg-secondary text-primary border border-border">
-            {tag}
-          </span>
-        ))}
+  imageUrl?: string;
+  liveLink?: string;
+  githubLink?: string;
+}
+
+const ContentCard = ({ title, subtitle, description, tags, imageUrl, liveLink, githubLink }: ContentCardProps) => (
+  <div className="bg-card border border-border rounded-xl hover:border-primary/40 transition-colors overflow-hidden flex flex-col">
+    {/* Optional Image Header */}
+    {imageUrl && (
+      <div className="w-full h-48 sm:h-64 overflow-hidden border-b border-border">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+        />
       </div>
     )}
+
+    <div className="p-5 md:p-6 flex flex-col flex-1">
+      <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
+      {subtitle && <p className="text-sm text-primary font-mono mb-2">{subtitle}</p>}
+      <p className="text-muted-foreground text-sm leading-relaxed mb-4">{description}</p>
+
+      {tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <span key={tag} className="text-xs font-mono px-2.5 py-1 rounded-md bg-secondary text-primary border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Action Buttons for Projects */}
+      {(liveLink || githubLink) && (
+        <div className="flex flex-wrap gap-3 mt-auto pt-4 border-t border-border/50">
+          {liveLink && (
+            <a
+              href={liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-md transition-colors border border-primary/20"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Live Demo
+            </a>
+          )}
+          {githubLink && (
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 bg-secondary text-foreground hover:bg-secondary/80 rounded-md transition-colors border border-border"
+            >
+              <Github className="w-3.5 h-3.5" />
+              Source Code
+            </a>
+          )}
+        </div>
+      )}
+    </div>
   </div>
 );
 
@@ -99,11 +153,10 @@ const TabbedContent = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                  isActive
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all ${isActive
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{tab.label}</span>

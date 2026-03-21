@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Terminal, Linkedin, ExternalLink } from "lucide-react";
+import { Github, Terminal, Linkedin, FileText } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -19,7 +19,7 @@ const HeroSection = () => {
         <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full p-[3px] bg-gradient-to-b from-emerald-400 to-slate-800 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
           <div className="w-full h-full rounded-full border-4 border-[#020617] overflow-hidden">
             <img
-              src="/my-photo.png"
+              src="/my-photo.webp"
               alt="Anupam Baral"
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
             />
@@ -79,14 +79,38 @@ const HeroSection = () => {
 
         <motion.a
           whileHover={{ y: -2 }}
-          href="https://linkedin.com/in/YOUR-USERNAME" // UPDATE THIS LINK
+          href="https://linkedin.com/in/unish06"
           target="_blank"
           className="inline-flex items-center gap-2 bg-slate-900 text-white border border-slate-700 px-6 py-2.5 rounded-full font-bold transition-all hover:border-blue-500 hover:text-blue-400"
         >
           <Linkedin className="w-5 h-5" />
           LinkedIn
         </motion.a>
+
+        {/* Disabled CV Button */}
+        <motion.button
+          disabled
+          className="inline-flex items-center gap-2 bg-slate-900/50 text-slate-500 border border-slate-800/50 px-6 py-2.5 rounded-full font-bold cursor-not-allowed"
+          title="Currently updating my CV. Check back soon!"
+        >
+          <FileText className="w-5 h-5 opacity-50" />
+          CV (Soon)
+        </motion.button>
+
+
+        {/* after cv is ready turn this comment on adn upper button off */}
+
+        {/* <motion.a
+  whileHover={{ y: -2 }}
+  href="/resume.pdf" 
+  download="Anupam_Baral_CV.pdf"
+  className="inline-flex items-center gap-2 bg-slate-900 text-white border border-slate-700 px-6 py-2.5 rounded-full font-bold transition-all hover:border-emerald-500 hover:text-emerald-400"
+>
+  <FileText className="w-5 h-5" />
+  Download CV
+</motion.a> */}
       </div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
