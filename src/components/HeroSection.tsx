@@ -79,7 +79,7 @@ const HeroSection = () => {
 
         <motion.a
           whileHover={{ y: -2 }}
-          href="https://linkedin.com/in/unish06"
+          href="https://linkedin.com/in/gomugomucode"
           target="_blank"
           className="inline-flex items-center gap-2 bg-slate-900 text-white border border-slate-700 px-6 py-2.5 rounded-full font-bold transition-all hover:border-blue-500 hover:text-blue-400"
         >
